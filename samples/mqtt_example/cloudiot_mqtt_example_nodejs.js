@@ -35,7 +35,8 @@ let backoffTime = 1;
 // Whether an asynchronous publish chain is in progress.
 let publishChainInProgress = false;
 
-console.log('Google Cloud IoT Core MQTT example.');
+console.log('Example of MQTT bridge between Virtual device and Google Cloud IoT Core');
+console.log('registerid-${argv.registryId}-deviceid-${argv.deviceId}');
 
 // Create a Cloud IoT Core JWT for the given project id, signed with the given
 // private key.
@@ -86,11 +87,11 @@ const publishAsync = (
   }
 
   setTimeout(() => {
-    const payload = `${argv.registryId}/${argv.deviceId}-payload-${messagesSent}`;
+    const payload = `Hello, Cloud IoT Core!! - ${messagesSent}`;
 
     // Publish "payload" to the MQTT topic. qos=1 means at least once delivery.
     // Cloud IoT Core also supports qos=0 for at most once delivery.
-    console.log('Publishing message:', payload);
+    console.log(payload,'-> Message published successfully');
     client.publish(mqttTopic, payload, {qos: 1}, err => {
       if (!err) {
         shouldBackoff = false;
@@ -356,7 +357,7 @@ const publishAsyncGateway = (
   console.log(`Publishing message ${messagesSent}/${numMessages}`);
   if (messagesSent > 0) {
     mqttTopic = `/devices/${deviceId}/state`;
-    payload = `${registryId}/${deviceId}-payload-${messagesSent}`;
+    payload = `Hello, Cloud IoT Core!! - ${messagesSent}`;
   }
 
   setTimeout(() => {
