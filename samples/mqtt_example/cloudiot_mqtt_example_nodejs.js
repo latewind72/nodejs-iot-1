@@ -36,7 +36,7 @@ let backoffTime = 1;
 let publishChainInProgress = false;
 
 console.log('Example of MQTT bridge between Virtual device and Google Cloud IoT Core');
-console.log('registerid-${argv.registryId}-deviceid-${argv.deviceId}');
+console.log('registerid-' ${argv.registryId} '-deviceid-' ${argv.deviceId});
 
 // Create a Cloud IoT Core JWT for the given project id, signed with the given
 // private key.
@@ -120,7 +120,6 @@ const publishAsync = (
         // [END iot_mqtt_jwt_refresh]
 
         client.on('connect', success => {
-          console.log('connect');
           if (!success) {
             console.log('Client not connected...');
           } else if (!publishChainInProgress) {
@@ -136,7 +135,6 @@ const publishAsync = (
         });
 
         client.on('close', () => {
-          console.log('close');
           shouldBackoff = true;
         });
 
